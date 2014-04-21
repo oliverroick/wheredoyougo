@@ -53,6 +53,10 @@ Controller = {
                 jQuery(e.target).tooltip('show');
             }.bind(this)
         });
+        jQuery('#filter select[name="selectCategory"]').click(function(event) {
+            console.log('click');
+            event.preventDefault();
+        });
         jQuery('#filter select[name="selectCategory"]').change(Controller.updateMapView.bind(this));
         
         Map.init(this);
