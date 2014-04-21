@@ -53,8 +53,7 @@ Controller = {
                 jQuery(e.target).tooltip('show');
             }.bind(this)
         });
-        
-        jQuery('#filter select[name="selectCategory"]').change(Controller.updateMapView);
+        jQuery('#filter select[name="selectCategory"]').change(Controller.updateMapView.bind(this));
         
         Map.init(this);
         Foursquare.initialize(this);
