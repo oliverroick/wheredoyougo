@@ -53,10 +53,6 @@ Controller = {
                 jQuery(e.target).tooltip('show');
             }.bind(this)
         });
-        jQuery('#filter select[name="selectCategory"]').click(function(event) {
-            console.log('click');
-            event.preventDefault();
-        });
         jQuery('#filter select[name="selectCategory"]').change(Controller.updateMapView.bind(this));
         
         Map.init(this);
@@ -67,7 +63,8 @@ Controller = {
             Foursquare.getCheckins({
                 update: this.updateProgress,
                 success: function () {
-                    this.hideProgress(), this.updateMapView()
+                    this.hideProgress();
+                    this.updateMapView();
                 }.bind(this),
                 error: this.showError
             });
@@ -76,7 +73,7 @@ Controller = {
                 success: function () {
                     Foursquare.categories.each(function(category) {
                         this.insertCategory(category, 0);
-                    }.bind(this))
+                    }.bind(this));
                 }.bind(this),
                 error: this.showError
             });
