@@ -38,7 +38,7 @@ Foursquare = {
 
 	getCheckins: function(callbacks) {
 		var offset = this.page * 250;
-		new Ajax.JSONRequest('https://api.foursquare.com/v2/users/self/checkins?limit=250&offset=' + offset + '&oauth_token=' + this.token + '&v=20120114', {
+		new Ajax.JSONRequest('https://api.foursquare.com/v2/users/self/checkins?limit=250&offset=' + offset + '&oauth_token=' + this.token + '&v=20140401', {
 			method: 'GET',
 			onSuccess: function (response) {
 				var count = response.responseJSON.response.checkins.count;

@@ -104,7 +104,6 @@ Controller = {
         var day = jQuery('#daySlider').slider('values');
         var hour = jQuery('#hourSlider').slider('values');
         var month = jQuery('#monthSlider').slider('values');
-        console.log(category);
         Map.initCluster(Foursquare.getDisplayData(category, hour, day, month));
     },
     
