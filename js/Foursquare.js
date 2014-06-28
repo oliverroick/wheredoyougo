@@ -114,7 +114,7 @@ Foursquare = {
 			});
 
 			if (
-				(category == -1 || (venueCategoryIds.intersect(relevantCategories) != 0)) &&
+				(category === -1 || (venueCategoryIds.intersect(relevantCategories) !== 0)) &&
 				((checkin.hour >= hour[0] && checkin.hour <= hour[1]))  &&
 				((checkin.day >= day[0] && checkin.day <= day[1])) &&
 				((checkin.month >= month[0] && checkin.month <= month[1]))
@@ -124,7 +124,7 @@ Foursquare = {
 				} else { // venue hasn't been processed before
 					var icon = null;
 					if (checkin.categories.length > 0) {
-						icon = checkin.categories[0].icon
+						icon = checkin.categories[0].icon;
 					}
 
 					venues.set(checkin.id, {
