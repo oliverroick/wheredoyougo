@@ -24,7 +24,7 @@ Map = {
                 new OpenLayers.Control.PanZoom()]
         });
 
-        var layer = new OpenLayers.Layer.Stamen("toner-lite");
+        var layer = new OpenLayers.Layer.Stamen("toner");
         this.map.addLayer(layer);
 
 
