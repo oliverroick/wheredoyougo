@@ -47,3 +47,4 @@ Thumbs.db
 *.sublime-workspace
 
 _site/
+local_settings.js
