@@ -5,243 +5,45 @@
 	<meta name="description" content="">
 	<meta name="author" content="Oliver Roick">
 
-	<script language="JavaScript" src="lib/jquery-1.8.2.min.js" type="text/javascript"></script>
-	<script language="JavaScript" src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-	<script src="lib/jquery-ui-1.9.1.custom.min.js"></script>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+	<link href='style.css' rel='stylesheet' />
 
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
-
-	<script language="JavaScript" src="lib/OpenLayers/OpenLayers.js" type="text/javascript"></script>
-	<script language="JavaScript" src="lib/prototype.js" type="text/javascript"></script>
-	<script language="JavaScript" src="lib/jsonp.js" type="text/javascript"></script>
-	<script type="text/javascript" src="lib/tile.stamen.js"></script>
-
-	<script src="js/Map.js" language="JavaScript" type="text/javascript"></script>
-	<script src="js/Foursquare.js" language="JavaScript" type="text/javascript"></script>
-	<script src="js/Gui.js" language="JavaScript" type="text/javascript"></script>
-
-
-	<style type="text/css">
-		#overview {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			padding: 1em;
-			background-color: #2d3841;
-
-			border-bottom: 3px solid #fff;
-			z-index: 2;
-		}
-
-		#overview h1 {
-			font-weight: normal;
-			float: left;
-			margin: 0;
-			color: #43c5dd;
-		}
-
-		#map {
-			right: 0;
-			top: 5em;
-			bottom: 3em;
-			left: 0;
-			position: absolute;
-			z-index: 1;
-		}
-
-		footer {
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			padding: 0 1em;
-			background-color: #2d3841;
-			color: #fff;
-			border-top: 3px solid #fff;
-			z-index: 2;
-		}
-
-		footer a {
-			color: #fff100;
-		}
-
-		footer p {
-			text-align: right;
-			margin: 0;
-		}
-
-		div#overview div.btn-group {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-
-		div#overview div.btn-group button {
-			margin-left: 232px;
-		}
-
-
-
-		div#filter {
-			padding: 0.8em 1em 1em 1em;
-		}
-
-		div#filter label {
-			width: 8em;
-		}
-
-		div#filter .form-inline {
-			margin-bottom: 0.5em;
-		}
-
-		.sliderLabel {
-			float:left;
-			width: 100px;
-		}
-
-		.slider {
-			width: 205px;
-			float: right;
-			margin-right: 5px;
-		}
-
-		.ui-slider .ui-slider-handle {
-			width: 10px;
-			height: 20px;
-			padding: 0;
-		}
-
-		.clearfix {
-			margin-top: 1em;
-		}
-
-		.popover {
-			display: block;
-			width: 250px;
-			height: 175px;
-		}
-
-		#clusterPopup {
-			background: none !important;
-			margin-top: -52px;
-			padding-left: 10px;
-		}
-
-		#clusterPopup table.table {
-			margin-bottom: 0;
-		}
-
-		#clusterPopup table tr td {
-			vertical-align: middle;
-		}
-
-		.popover.right .arrow {
-			top: 50px;
-		}
-
-		.popover .popover-content {
-			overflow-y: scroll;
-			height: 110px !important;
-		}
-	</style>
-
-	<script type="text/javascript" language="JavaScript">
-		jQuery(document).ready(function () {
-			Controller.initialize();
-		});
-	</script>
+	<script src="lib/super-simple-events.js"></script>
 </head>
 <body>
 
 	<div class="container">
-		<!--
-		#
-		# OVERVIEW
-		#
-		-->
-		<div id="overview">
-			<h1>Where do you go? ... And when?</h1>
-			<div class="btn-group">
-            	<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">Filter checkins <span class="caret"></span></button>
-                <div id="filter" class="dropdown-menu" aria-labelledby="dLabel">
-					<legend>Filter checkins</legend>
-					<div class="form-inline">
-						<label>
-			    			Category
-					  	</label>
-					  	<select name="selectCategory">
-							<option value="-1">All categories</option>
-						</select>
-					</div>
-
-					<div class="clearfix">
-						<div class="sliderLabel">
-		    				Month of year
-					  	</div>
-					  	<div id="monthSlider" class="slider"></div>
-					</div>
-
-					<div class="clearfix">
-						<div class="sliderLabel">
-		    				Day of week
-					  	</div>
-					  	<div id="daySlider" class="slider"></div>
-					</div>
-
-					<div class="clearfix">
-						<div class="sliderLabel">
-		    				Hour of day
-		    		  	</div>
-					  	<div id="hourSlider" class="slider"></div>
-					</div>
-              	</div>
-			</div>
-		</div>
-
-		<!--
-		#
-		# MAP
-		#
-		-->
-		<div class="modal hide fade" id="login">
-	  		<div class="modal-header">
-    			<h3>Please log-in to Foursquare</h3>
-  			</div>
-  			<div class="modal-body">
-    			<p>In order to make use of the tool you need to login to Foursquare and provide access to the application.</p>
-  			</div>
-  			<div class="modal-footer">
-    			<a href="https://foursquare.com/oauth2/authenticate?client_id=TPVKWRYLGK0D5TZY1FJCIWBE0V4I30QVYQY0BLSWHV2RTTKC&response_type=token&redirect_uri=http://oliverroick.de/wheredoyougo/" class="btn btn-primary">Log-in to Foursquare</a>
-  			</div>
-		</div>
-
-		<div class="modal hide fade" id="loading">
-			<div class="modal-header">
-    			<h3>Loading check-ins</h3>
-  			</div>
-  			<div class="modal-body">
-    			<p>We are currently loading and processing your check-in data from Foursquare. Please be patient.</p>
-    			<div class="progress progress-striped active">
-  					<div class="bar" style="width: 0%;"></div>
-				</div>
-  			</div>
-		</div>
+		<header>
+			<h1>Where do you go?</h1>
+		</header>
 
 		<div id="map"></div>
 
-		<!--
-		#
-		# FOOTER
-		#
-		-->
+		<div id="venue-info" class="modal hidden">
+			<div id="pointer"></div>
+			<h2></h2>
+			<button class="close-btn">&times;</button>
+			<div class="number"></div>
+		</div>
 
-		<footer id="imprint">
-			<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a> <a href="http://oliverroick.de">Oliver Roick</a>. Background map: Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>. <a href="http://foursquare.com/"><img src="img/foursquare.png" width="200" alt="Powered by Foursquare"></a></p>
+		<div id="working" class="modal hidden">
+			<h2></h2>
+			<p></p>
+		</div>
+
+		<div id="authenticate" class="modal hidden">
+			<h2>Sign in</h2>
+			<p>Please authorise access to your check-ins before we can show you the map.</p>
+			<p><a id="fs-auth" class="btn" href="https://foursquare.com/oauth2/authenticate?client_id=[token]&response_type=token&redirect_uri=http://localhost:4000/">Sign in</a></p>
+		</div>
+
+		<footer>
+			<p><a href="http://foursquare.com/"><img src="img/foursquare.png" width="200" alt="Powered by Foursquare"></a></p>
 		</footer>
 	</div>
 
-
+	<script src="dist/build.min.js"></script>
 </body>
 </html>
