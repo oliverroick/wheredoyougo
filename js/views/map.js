@@ -2,29 +2,27 @@
     'use strict';
 
     var STYLE = {
-        stroke: false,
-        fill: true,
-        fillColor: '#22313F',
-        fillOpacity: 0.4
-    };
-
-    var HOVER = {
-        stroke: true,
-        color: '#F7CA18',
-        opacity: 1,
-        fill: true,
-        fillColor: '#22313F',
-        fillOpacity: 1
-    };
-
-    var HIGHLIGHT = {
-        stroke: true,
-        color: '#fff',
-        opacity: 1,
-        fill: true,
-        fillColor: '#F7CA18',
-        fillOpacity: 1
-    };
+            stroke: false,
+            fill: true,
+            fillColor: '#22313F',
+            fillOpacity: 0.4
+        },
+        HOVER = {
+            stroke: true,
+            color: '#F7CA18',
+            opacity: 1,
+            fill: true,
+            fillColor: '#22313F',
+            fillOpacity: 1
+        },
+        HIGHLIGHT = {
+            stroke: true,
+            color: '#fff',
+            opacity: 1,
+            fill: true,
+            fillColor: '#F7CA18',
+            fillOpacity: 1
+        };
 
     var highlightedFeature;
 
@@ -34,16 +32,16 @@
         L.mapbox.accessToken = SETTINGS.MAPBOX.pk;
         this.map = L.mapbox.map('map', 'mapbox.streets-basic', {zoomControl: false}).setView([51.50719323477933, -0.12754440307617188], 9);
 
-        this.map.on('click', function (evt) {
+        this.map.on('click', function () {
             this.emitEvent('map:featureUnselect', highlightedFeature);
             this.unselectFeature();
         }.bind(this));
 
-        this.map.on('dragstart', function (evt) {
+        this.map.on('dragstart', function () {
             this.emitEvent('map:drag');
         }.bind(this));
 
-        this.map.on('zoomend', function (evt) {
+        this.map.on('zoomend', function () {
             if (highlightedFeature) {
                 this.map.panTo(highlightedFeature.properties.location, {animate: true});
             }
@@ -59,9 +57,9 @@
             highlightedFeature.setStyle(STYLE);
             highlightedFeature = null;
         }
-    }
+    };
 
-    Map.prototype.addCheckins = function addCheckins (checkins) {
+    Map.prototype.addCheckins = function addCheckins(checkins) {
         var markers = [];
         for (var key in checkins) {
             var checkin = checkins[key];
@@ -100,7 +98,7 @@
             venueLayer.addLayer(marker);
         }
         this.map.fitBounds(venueLayer.getBounds());
-    }
+    };
 
     global.map = new Map();
 }(window.views ? window.views: window.views = {}));
