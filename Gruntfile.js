@@ -16,7 +16,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'js/local_settings.js',
+                    'js/settings.js',
                     'js/views/map.js',
                     'js/views/authenticate.js',
                     'js/views/working.js',
