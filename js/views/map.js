@@ -99,7 +99,7 @@
         highlightedFeature = evt.target;
         evt.target.setStyle(HIGHLIGHT);
         evt.target.bringToFront();
-        var zoom = this.map.getZoom() > 14 ? this.map.getZoom() : 12;
+        var zoom = this.map.getZoom() > 12 ? this.map.getZoom() : 12;
         this.map.setView(evt.target.properties.location, zoom);
         this.emitEvent('map:featureSelect', evt.target);
     };
