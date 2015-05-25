@@ -65,39 +65,43 @@
             var checkin = checkins[key];
             var marker = L.circleMarker(checkin.location, STYLE);
             var radius = checkin.checkins <= 41 ? 10 + Math.floor(checkin.checkins/2) : 25;
-            marker.setRadius(radius)
+            marker.setRadius(radius);
 
             marker.properties = checkin;
 
-            marker.on('click', function(evt) {
-                if (highlightedFeature) {
-                    highlightedFeature.setStyle(STYLE);
-                }
-
-                highlightedFeature = evt.target;
-                evt.target.setStyle(HIGHLIGHT);
-                evt.target.bringToFront();
-                var zoom = this.map.getZoom() > 14 ? this.map.getZoom() : 12;
-                this.map.setView(evt.target.properties.location, zoom);
-                this.emitEvent('map:featureSelect', evt.target);
-            }.bind(this));
-
-            marker.on('mouseover', function() {
-                this.setStyle(HOVER);
-                this.bringToFront();
-            });
-
-            marker.on('mouseout', function() {
-                if (this !== highlightedFeature) {
-                    this.setStyle(STYLE);
-                } else {
-                    this.setStyle(HIGHLIGHT);
-                }
-            });
+            marker.on('click', highlightFeature.bind(this));
+            marker.on('mouseover', hoverFeature.bind(this));
+            marker.on('mouseout', unhoverFeature);
 
             venueLayer.addLayer(marker);
         }
         this.map.fitBounds(venueLayer.getBounds());
+    };
+
+    var unhoverFeature = function unhoverFeature(evt) {
+        if (evt.target !== highlightedFeature) {
+            evt.target.setStyle(STYLE);
+        } else {
+            evt.target.setStyle(HIGHLIGHT);
+        }
+    };
+
+    var hoverFeature = function hoverFeature(evt) {
+        evt.target.setStyle(HOVER);
+        evt.target.bringToFront();
+    };
+
+    var highlightFeature = function highlightFeature(evt) {
+        if (highlightedFeature) {
+            highlightedFeature.setStyle(STYLE);
+        }
+
+        highlightedFeature = evt.target;
+        evt.target.setStyle(HIGHLIGHT);
+        evt.target.bringToFront();
+        var zoom = this.map.getZoom() > 14 ? this.map.getZoom() : 12;
+        this.map.setView(evt.target.properties.location, zoom);
+        this.emitEvent('map:featureSelect', evt.target);
     };
 
     global.map = new Map();

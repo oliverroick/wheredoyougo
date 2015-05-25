@@ -3,7 +3,7 @@
 
     function App() {
         if (Foursquare.isAuthorizsed()) {
-            views.working.show('Loading', 'We are getting your checkin data from Foursquare.')
+            views.working.show('Loading', 'We are getting your checkin data from Foursquare.');
             Foursquare.registerListener('checkins:loadend', handleCheckinsLoadEnd);
             Foursquare.registerListener('checkins:processed', handleCheckinsProcessed);
             Foursquare.getCheckins();
@@ -14,7 +14,7 @@
 
     var handleCheckinsLoadEnd = function handleCheckinsLoadEnd(event) {
         views.working.hide();
-        views.working.show('Processing checkins', 'We are processing ' + event.count + ' checkins now.')
+        views.working.show('Processing checkins', 'We are processing ' + event.count + ' checkins now.');
     };
 
     var handleCheckinsProcessed = function handleCheckinsProcessed(event) {
@@ -28,12 +28,12 @@
 
     var handleFeatureSelect = function handleFeatureSelect(feature) {
         views.venueInfo.show(feature.properties.name, feature.properties.checkins);
-    }
+    };
 
     var handleFeatureUnselect = function handleFeatureUnselect(event) {
         views.venueInfo.hide();
         views.map.unselectFeature();
-    }
+    };
 
     global.app = new App();
 }(window));

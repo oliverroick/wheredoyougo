@@ -48,3 +48,6 @@ Thumbs.db
 
 _site/
 local_settings.js
+settings.js
+node_modules
+build.js

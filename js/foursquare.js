@@ -27,7 +27,7 @@
             this.page++;
             this.getCheckins();
         }
-    }
+    };
 
     Foursquare.prototype.getCheckins = function getCheckins() {
         var offset = this.page * 250;
@@ -52,12 +52,12 @@
                         category: venue.categories[0],
                         checkins: 1,
                         location: [venue.location.lat, venue.location.lng]
-                    }
+                    };
                 }
             }
         }
         this.emitEvent('checkins:processed', {checkins: processed});
-    }
+    };
 
     global.Foursquare = new Foursquare();
 
