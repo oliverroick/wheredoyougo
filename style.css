@@ -65,7 +65,7 @@ header {
     margin-top: -150px;
     margin-left: -200px;
     background-color: #fff;
-    z-index: 9999;
+    z-index: 5000;
 
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -74,6 +74,18 @@ header {
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
+
+    .modal > .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        border: 0;
+        background-color: #fff;
+        font-size: 20px;
+        color: #bbb;
+        cursor: pointer;
+        z-index: 9999;
+    }
 
     .modal > h2 {
         font-weight: normal;
@@ -95,6 +107,53 @@ header {
         background: url(img/ajax-loader.gif) no-repeat 10px 3px;
         padding-left: 35px;
     }
+
+    #venue-info {
+        top: 50%;
+        margin-top: 25px;
+        padding-bottom: 15px;
+        z-index: 5000;
+    }
+
+        #pointer {
+            z-index: 4998;
+            position: absolute;
+            background-color: #fff;
+            top: -10px;
+            left: 50%;
+            margin-left: -10px;
+            width: 20px;
+            height: 20px;
+            -moz-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+
+        #venue-info > h2 {
+            text-align: left;
+            position: relative;
+            z-index: 4999;
+            background-color: #fff;
+        }
+
+        #venue-info .number {
+            text-align: center;
+            font-size: 64px;
+            font-weight: bold;
+        }
+
+        #venue-info .number .label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
 
 footer {
     position: absolute;
