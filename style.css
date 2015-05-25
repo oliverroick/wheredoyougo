@@ -144,6 +144,7 @@ header {
             position: relative;
             z-index: 4999;
             background-color: #fff;
+            padding-right: 50px;
         }
 
         #venue-info .number {
